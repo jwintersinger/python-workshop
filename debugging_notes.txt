@@ -1,0 +1,39 @@
+Practical issues with debugging:
+  Know what's supposed to do -- you need to be able to produce a test case with known output and correct output
+  But writing test cases is hard, especially in science where you don't know what the results are supposed to be
+    If you know what the results should be, you'd be writing a paper, not writing code
+  In practice:
+    1. Test with simplified data
+      Calculate stats on a single record, for two identical records, for two records with values one step apart, or for another case where you can calculate right answer by hand
+    2. Test simplified case
+      If you simulate magnetic eddies in rapidly rotating blobs of supercooled helium, first test should be helium that isn't rotating and not subject to external magnetic fields fields
+      If looking at climate change effects on speciation, keep temperature, precip, and other factors constant in first test
+    3. Compare to oracle: something whose results are tested -- experimental data, olde rprogram, or human expert
+    4. Check conservation laws
+      Mass/energy/etc. conserved in physical systems, so should be in your program
+      If you are looking at patient records, # of records should stay same or decrease as you progress through analyses
+    5. visualize -- it's hard to compare visualizations automatically, but it can frequently tell you when something is going horribly wrong
+
+Make it fail every time: intermittent problems can't be debugged
+  Make sure you're running on the code and data you think you are
+  I've spent many hours trying to debug my program, only to realize I'm running it on my lab's server while I'm editing the code locally
+
+Make it fail fast: if it takes 20 mins to run, debugging will be slow, and you'll end up distractedly surfing Facebook
+  Localize the problem to the smallest possible region of code
+    If output is wrong, see if problem occurs in first half or in second half
+
+Change one thing at a time, for a reason
+  Don't change massive chunks of code at once
+  You want to get more info ("is bhe bug still there if we change order of loops?) or test fix ("can we make bug go away by sorting data before processing?") with each fix
+  Re-run tests after each change, across whole program -- you often introduce new bugs in unrelated parts of code
+
+Track what you've done: carefuly follow what changes had what effect
+  Don't waste time repeating same experiments or using ones not interesting
+  If you ask, "Did left followed by right with odd # of lines cause crash? Or was it right followed by left? Or was I using even number of lines?", then step away from computer, take deep breath, and work more systematically
+
+Be humble: enlisting others is enormously helpful, as they are more likely to look for reasons it's not working, rather than reasons it *should* be working -- they're more objective
+  Rubber duck debugging
+
+Exercise: debug with a neighbour
+  Take one of the functions we've written today, introduce a deliberate bug, and have your neighbour figure out what's wrong with it by applying what we've learned
+  As one example, I'll put up our rectangle normalization function that you can re-implement and introduce a bug in, but I encourage you to select something else
